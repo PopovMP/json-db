@@ -1,0 +1,26 @@
+{
+  "name": "@popovmp/json-db",
+  "version": "1.0.0",
+  "description": "A synchronous Json DB for NodeJS",
+  "main": "index.mjs",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "@popovmp/file-writer": "^1.3.1",
+    "@popovmp/logger": "^1.0.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "eslint": "^9.17.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/popovmp/json-db.git"
+  },
+  "scripts": {
+    "eslint": "eslint",
+    "test": "node --test",
+    "prepublishOnly": "node --test",
+    "publishPackage": "npm publish --access=public"
+  }
+}
