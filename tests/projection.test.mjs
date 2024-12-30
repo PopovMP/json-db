@@ -1,7 +1,7 @@
 import {test}        from "node:test";
 import {strictEqual} from "node:assert";
 
-import {dbProjection} from "../index.mjs";
+import {dbProjection} from "../lib/db.mjs";
 
 test("dbProjection gets complete doc given {}", () => {
     const doc = {_id: "1", val: 13, name: "Alice"};

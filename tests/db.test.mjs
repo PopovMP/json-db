@@ -3,7 +3,7 @@ import {fileURLToPath}                from "node:url";
 import {afterEach, test}              from "node:test";
 import {deepStrictEqual, strictEqual} from "node:assert";
 
-import {initDb, getDb} from "../index.mjs";
+import {initDb, getDb} from "../lib/db.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname  = dirname(__filename);

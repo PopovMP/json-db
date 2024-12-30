@@ -1,7 +1,7 @@
 import {test}        from "node:test";
 import {strictEqual} from "node:assert";
 
-import {dbInsert}    from "../index.mjs";
+import {dbInsert}    from "../lib/db.mjs";
 
 function getDocMap() {
     return {

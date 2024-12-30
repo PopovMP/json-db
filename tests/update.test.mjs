@@ -1,7 +1,7 @@
 import {test}                         from "node:test";
 import {deepStrictEqual, strictEqual} from "node:assert";
 
-import {dbUpdate} from "../index.mjs";
+import {dbUpdate} from "../lib/db.mjs";
 
 test("dbUpdate - update cannot be string", () => {
     const doc        = {_id: "1", val: 1};

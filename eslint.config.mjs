@@ -3,6 +3,7 @@ import pluginJs from "@eslint/js";
 /** @type {import('eslint').Linter.Config[]} */
 export default [{
   files: [
+    "lib/*.mjs",
     "tests/*.mjs",
     "index.mjs",
   ],
