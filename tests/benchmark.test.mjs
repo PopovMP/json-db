@@ -1,8 +1,8 @@
-import {join, dirname} from "node:path";
-import {fileURLToPath} from "node:url";
-import {test}          from "node:test";
-import {ok}            from "node:assert";
-import console         from "node:console";
+import {join, dirname}  from "node:path";
+import {fileURLToPath}  from "node:url";
+import {test, describe} from "node:test";
+import {ok}             from "node:assert";
+import console          from "node:console";
 
 import {getDb, initDb} from "../lib/db.mjs";
 
@@ -16,71 +16,75 @@ const countObjects = 1000;
 
 preheatDb();
 
-test("insert", () => {
-    const timeStart = Date.now();
+describe("Benchmark", () => {
 
-    let count = 0;
-    for (let i = 0; i < countObjects; i++) {
-        count += db.insert({index: i, b: 42}, {skipSave: true}) ? 1 : 0;
-    }
+    test("insert", () => {
+        const timeStart = Date.now();
 
-    validate("insert", timeStart, count);
-});
+        let count = 0;
+        for (let i = 0; i < countObjects; i++) {
+            count += db.insert({index: i, b: 42}, {skipSave: true}) ? 1 : 0;
+        }
 
-test("find", () => {
-    const timeStart = Date.now();
+        validate("insert", timeStart, count);
+    });
 
-    let count = 0;
-    for (let i = 0; i < countObjects; i++) {
-        count += db.find({index: i, b: {$gte: 42}}, {index: 1}).length;
-    }
+    test("find", () => {
+        const timeStart = Date.now();
 
-    validate("find", timeStart, count);
-});
+        let count = 0;
+        for (let i = 0; i < countObjects; i++) {
+            count += db.find({index: i, b: {$gte: 42}}, {index: 1}).length;
+        }
 
-test("findOne", () => {
-    const timeStart = Date.now();
+        validate("find", timeStart, count);
+    });
 
-    let count = 0;
-    for (let i = 0; i < countObjects; i++) {
-        count += db.findOne({index: i, b: {$gte: 42}}, {index: 1}) ? 1 : 0;
-    }
+    test("findOne", () => {
+        const timeStart = Date.now();
 
-    validate("findOne", timeStart, count);
-});
+        let count = 0;
+        for (let i = 0; i < countObjects; i++) {
+            count += db.findOne({index: i, b: {$gte: 42}}, {index: 1}) ? 1 : 0;
+        }
 
-test("findOne by _id", () => {
-    const timeStart = Date.now();
+        validate("findOne", timeStart, count);
+    });
 
-    let count = 0;
-    const ids = db.find({}, {_id: 1}).map((doc) => doc._id);
-    for (const id of ids) {
-        count += db.findOne({_id: id}, {index: 1}) ? 1 : 0;
-    }
+    test("findOne by _id", () => {
+        const timeStart = Date.now();
 
-    validate("findOne by _id", timeStart, count);
-});
+        let count = 0;
+        const ids = db.find({}, {_id: 1}).map((doc) => doc._id);
+        for (const id of ids) {
+            count += db.findOne({_id: id}, {index: 1}) ? 1 : 0;
+        }
 
-test("update", () => {
-    const timeStart = Date.now();
+        validate("findOne by _id", timeStart, count);
+    });
 
-    let count = 0;
-    for (let i = 0; i < countObjects; i++) {
-        count += db.update({index: i, b: {$gte: 42}}, {$set: {b: 13}}, {skipSave: true});
-    }
+    test("update", () => {
+        const timeStart = Date.now();
 
-    validate("update", timeStart, count);
-});
+        let count = 0;
+        for (let i = 0; i < countObjects; i++) {
+            count += db.update({index: i, b: {$gte: 42}}, {$set: {b: 13}}, {skipSave: true});
+        }
 
-test("remove", () => {
-    const timeStart = Date.now();
+        validate("update", timeStart, count);
+    });
 
-    let count = 0;
-    for (let i = 0; i < countObjects; i++) {
-        count += db.remove({index: i, b: {$lt: 42}}, {skipSave: true});
-    }
+    test("remove", () => {
+        const timeStart = Date.now();
 
-    validate("remove", timeStart, count);
+        let count = 0;
+        for (let i = 0; i < countObjects; i++) {
+            count += db.remove({index: i, b: {$lt: 42}}, {skipSave: true});
+        }
+
+        validate("remove", timeStart, count);
+    });
+
 });
 
 function preheatDb() {

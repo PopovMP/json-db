@@ -3,8 +3,8 @@ import {fileURLToPath}                from "node:url";
 import {afterEach, describe, test}    from "node:test";
 import {deepStrictEqual, strictEqual} from "node:assert";
 
-import {initDb, getDb}    from "../lib/db.mjs";
-import {callJsonDBAction} from "../lib/api.mjs";
+import {initDb, getDb} from "../lib/db.mjs";
+import {callDbAction}  from "../lib/api.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname  = dirname(__filename);
@@ -27,7 +27,7 @@ describe("DB API", () => {
             options   : {skipSave: true},
         };
 
-        const res = callJsonDBAction(dbReq);
+        const res = callDbAction(dbReq);
 
         strictEqual(res.status, 200);
         const actual = foo.findOne({_id: res.data}, {});
@@ -46,7 +46,7 @@ describe("DB API", () => {
             projection: {val: 1},
         };
 
-        const res = callJsonDBAction(dbReq);
+        const res = callDbAction(dbReq);
 
         strictEqual(res.status, 200);
 
@@ -68,7 +68,7 @@ describe("DB API", () => {
             projection: {name: 1},
         };
 
-        const res = callJsonDBAction(dbReq);
+        const res = callDbAction(dbReq);
 
         strictEqual(res.data.length, 3);
         strictEqual(res.data[0].name, "foo");
@@ -88,7 +88,7 @@ describe("DB API", () => {
             query     : {val: 13},
         };
 
-        const res = callJsonDBAction(dbReq);
+        const res = callDbAction(dbReq);
 
         strictEqual(res.data, 2);
     });
@@ -105,7 +105,7 @@ describe("DB API", () => {
             options   : {skipSave: true},
         };
 
-        const res = callJsonDBAction(dbReq);
+        const res = callDbAction(dbReq);
 
         strictEqual(res.status, 200);
         strictEqual(res.data,     1);
@@ -124,7 +124,7 @@ describe("DB API", () => {
             options   : {skipSave: true, multi: false},
         };
 
-        const res = callJsonDBAction(dbReq);
+        const res = callDbAction(dbReq);
 
         strictEqual(res.status, 200);
         strictEqual(res.data,     1);
