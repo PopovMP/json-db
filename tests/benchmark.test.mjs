@@ -110,6 +110,11 @@ function preheatDb() {
     }
 }
 
+/**
+ * @param {string} operation
+ * @param {number} timeStart
+ * @param {number} count
+ */
 function validate(operation, timeStart, count) {
     const time = Date.now() - timeStart;
 

@@ -75,5 +75,7 @@
  * @property {any}         data
  */
 
+/** @typedef {import("./lib/db.mjs").JsonDB} JsonDB */
+
 export * from "./lib/db.mjs";
 export * from "./lib/api.mjs";
