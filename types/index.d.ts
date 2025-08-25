@@ -132,13 +132,13 @@ declare module "@popovmp/json-db" {
   /**
    * The DataBase interface describes the database.
    *
-   * - `options`: The database options.
+   * - `dbName`: The database name.
    *
    * - `docMap`: The map of documents in the database.
    */
   export interface DataBase {
-    options: DbOptions;
-    docMap : DocMap;
+    dbName: string;
+    docMap: DocMap;
   }
 
   /**

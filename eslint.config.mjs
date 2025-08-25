@@ -3,9 +3,9 @@ import pluginJs from "@eslint/js";
 /** @type {import('eslint').Linter.Config[]} */
 export default [{
   files: [
-    "lib/*.mjs",
-    "tests/*.mjs",
-    "index.mjs",
+    "lib/*.js",
+    "tests/*.js",
+    "index.js",
   ],
   languageOptions: {
     sourceType: "module",

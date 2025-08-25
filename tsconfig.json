@@ -1,8 +1,8 @@
 {
   "include": [
-    "lib/*.mjs",
-    "tests/*.mjs",
-    "index.mjs"
+    "lib/*.js",
+    "tests/*.js",
+    "index.js"
   ],
   "compilerOptions": {
     "target": "ESNext",

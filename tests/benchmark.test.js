@@ -4,7 +4,7 @@ import {test, describe} from "node:test";
 import {ok}             from "node:assert";
 import console          from "node:console";
 
-import {getDb, initDb} from "../lib/db.mjs";
+import {getDb, initDb} from "../lib/db.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname  = dirname(__filename);

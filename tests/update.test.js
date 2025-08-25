@@ -1,11 +1,11 @@
 import {describe, test}               from "node:test";
 import {deepStrictEqual, strictEqual} from "node:assert";
 
-import {dbUpdate} from "../lib/db.mjs";
+import {dbUpdate} from "../lib/db.js";
 
 describe("dbUpdate", () => {
   test("dbUpdate - update cannot be string", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc = {_id: "1", val: 1};
     // @ts-expect-error - Testing string input
     // noinspection JSCheckFunctionSignatures
@@ -14,7 +14,7 @@ describe("dbUpdate", () => {
   });
 
   test("dbUpdate - update cannot be null", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc = {_id: "1", val: 1};
     // @ts-expect-error - Testing null input
     // noinspection JSCheckFunctionSignatures
@@ -23,7 +23,7 @@ describe("dbUpdate", () => {
   });
 
   test("dbUpdate - update cannot be an array", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc = {_id: "1", val: 1};
     // @ts-expect-error - Testing array input
     // noinspection JSCheckFunctionSignatures
@@ -32,14 +32,14 @@ describe("dbUpdate", () => {
   });
 
   test("dbUpdate - update without operator", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc        = {_id: "1", val: 1};
     const numUpdated = dbUpdate(doc, {});
     strictEqual(numUpdated, 0);
   });
 
   test("dbUpdate - update with unknown operator", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc = {_id: "1", val: 1};
     // @ts-expect-error - Testing unknown operator
     // noinspection JSCheckFunctionSignatures - Testing unknown operator
@@ -48,7 +48,7 @@ describe("dbUpdate", () => {
   });
 
   test("dbUpdate $inc single val", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc        = {_id: "1", val: 1};
     const numUpdated = dbUpdate(doc, {$inc: {val: 5}});
     strictEqual(numUpdated, 1);
@@ -56,7 +56,7 @@ describe("dbUpdate", () => {
   });
 
   test("dbUpdate $inc creates a field", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc        = {_id: "1"};
     const numUpdated = dbUpdate(doc, {$inc: {val: 42}});
     strictEqual(numUpdated, 1);
@@ -64,7 +64,7 @@ describe("dbUpdate", () => {
   });
 
   test("dbUpdate $inc multiple vals", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc        = {_id: "1", val: 1, coll: 2};
     const numUpdated = dbUpdate(doc, {$inc: {val: 5, coll: -1}});
     strictEqual(numUpdated, 1);
@@ -73,7 +73,7 @@ describe("dbUpdate", () => {
   });
 
   test("dbUpdate $inc non-numeric delta", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc = {_id: "1", val: 1};
     // @ts-expect-error - Testing non-numeric delta
     // noinspection JSCheckFunctionSignatures
@@ -83,7 +83,7 @@ describe("dbUpdate", () => {
   });
 
   test("dbUpdate $inc non-numeric field", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc        = {_id: "1", name: "john"};
     const numUpdated = dbUpdate(doc, {$inc: {name: 1}});
     strictEqual(numUpdated, 0);
@@ -91,7 +91,7 @@ describe("dbUpdate", () => {
   });
 
   test("dbUpdate $push - single field", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc        = {_id: "1", vals: [1]};
     const numUpdated = dbUpdate(doc, {$push: {vals: 5}});
     strictEqual(numUpdated, 1);
@@ -99,7 +99,7 @@ describe("dbUpdate", () => {
   });
 
   test("dbUpdate $push - multiple fields", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc = {_id: "1", vals: [1], names: ["john"]};
     const n   = dbUpdate(doc, {$push: {vals: 5, names: "anny"}});
     strictEqual(n, 1);
@@ -108,7 +108,7 @@ describe("dbUpdate", () => {
   });
 
   test("dbUpdate $push - creates a field", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc        = {_id: "1"};
     const numUpdated = dbUpdate(doc, {$push: {vals: 5}});
     strictEqual(numUpdated, 1);
@@ -116,7 +116,7 @@ describe("dbUpdate", () => {
   });
 
   test("dbUpdate $push - non-array field", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc        = {_id: "1", val: 1};
     const numUpdated = dbUpdate(doc, {$push: {val: 5}});
     strictEqual(numUpdated, 0);
@@ -124,7 +124,7 @@ describe("dbUpdate", () => {
   });
 
   test("dbUpdate $rename - single field", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc        = {_id: "1", val: 1};
     const numUpdated = dbUpdate(doc, {$rename: {val: "count"}});
     strictEqual(numUpdated, 1);
@@ -132,7 +132,7 @@ describe("dbUpdate", () => {
   });
 
   test("dbUpdate $rename - multiple fields", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc        = {_id: "1", val: 1, coll: 2};
     const numUpdated = dbUpdate(doc, {
       $rename: {val: "count", coll: "collection"},
@@ -152,7 +152,7 @@ describe("dbUpdate", () => {
   });
 
   test("dbUpdate $rename - non-string new name", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc = {_id: "1", val: 1};
     // @ts-expect-error - Testing non-string new name
     // noinspection JSCheckFunctionSignatures
@@ -162,7 +162,7 @@ describe("dbUpdate", () => {
   });
 
   test("dbUpdate $rename - existing field", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc        = {_id: "1", val: 1, count: 2};
     const numUpdated = dbUpdate(doc, {$rename: {val: "count"}});
     strictEqual(numUpdated, 0);
@@ -171,7 +171,7 @@ describe("dbUpdate", () => {
   });
 
   test("dbUpdate $rename - non-existing field", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc        = {_id: "1"};
     const numUpdated = dbUpdate(doc, {$rename: {count: "val"}});
     strictEqual(numUpdated, 0);
@@ -179,7 +179,7 @@ describe("dbUpdate", () => {
   });
 
   test("dbUpdate $set - single field", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc        = {_id: "1", val: 1};
     const numUpdated = dbUpdate(doc, {$set: {val: 2}});
     strictEqual(numUpdated, 1);
@@ -195,7 +195,7 @@ describe("dbUpdate", () => {
   });
 
   test("dbUpdate $set - creates a field", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc        = {_id: "1"};
     const numUpdated = dbUpdate(doc, {$set: {val: 2}});
     strictEqual(numUpdated, 1);
@@ -249,7 +249,7 @@ describe("dbUpdate", () => {
 
 // dbUpdate - using multiple operators
   test("dbUpdate - using multiple operators", () => {
-    /** @type {import("../index.mjs").Doc} */
+    /** @type {import("../index.js").Doc} */
     const doc        = {_id: "1", val: 1, coll: 2};
     const numUpdated = dbUpdate(doc, {
       $inc   : {val: 5, coll: -1},

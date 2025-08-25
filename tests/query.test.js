@@ -1,7 +1,7 @@
 import {describe, test} from "node:test";
 import {strictEqual}    from "node:assert";
 
-import {dbQuery, dbQueryOne} from "../lib/db.mjs";
+import {dbQuery, dbQueryOne} from "../lib/db.js";
 
 function getDocMap() {
   return {

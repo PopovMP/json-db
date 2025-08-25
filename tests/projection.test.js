@@ -1,7 +1,7 @@
 import {describe, test} from "node:test";
 import {strictEqual}    from "node:assert";
 
-import {dbProjection} from "../lib/db.mjs";
+import {dbProjection} from "../lib/db.js";
 
 describe("dbProjection", () => {
   test("dbProjection gets complete doc given {}", () => {
