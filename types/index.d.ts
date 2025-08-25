@@ -276,4 +276,10 @@ declare module "@popovmp/json-db" {
    * @returns {ApiRes}
    */
   export function callDbAction(req: ApiReq): ApiRes;
+
+  /**
+   * Checks if the database is busy
+   * @returns {boolean}
+   */
+  export function isDbBusy(): boolean;
 }

@@ -7,7 +7,7 @@
   "types": "types/index.d.ts",
   "license": "MIT",
   "dependencies": {
-    "@popovmp/file-writer": "^1.6.0",
+    "@popovmp/file-writer": "^1.7.0",
     "@popovmp/logger": "^2.1.2"
   },
   "devDependencies": {
