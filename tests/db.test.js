@@ -125,9 +125,10 @@ describe("getDb", () => {
     db.insert({name: "baz"}, {skipSave: true});
 
     const numUpdated = db.update(
-        {name: "foo"},
-        {$set: {name: "qux"}},
-        {skipSave: true});
+      {name: "foo"},
+      {$set: {name: "qux"}},
+      {skipSave: true},
+    );
     strictEqual(numUpdated, 1);
     strictEqual(db.count({name: "qux"}), 1);
   });
@@ -139,9 +140,9 @@ describe("getDb", () => {
     db.insert({name: "baz"}, {skipSave: true});
 
     const numUpdated = db.update(
-        {name: {$exists: 1}},
-        {$set: {name: "qux"}},
-        {multi: true, skipSave: true},
+      {name: {$exists: 1}},
+      {$set: {name: "qux"}},
+      {multi: true, skipSave: true},
     );
     strictEqual(numUpdated, 3);
   });
@@ -153,10 +154,29 @@ describe("getDb", () => {
     db.insert({name: "baz"}, {skipSave: true});
 
     const numUpdated = db.update(
-        {name: {$exists: 1}},
-        {$set: {name: "qux"}},
-        {skipSave: true},
+      {name: {$exists: 1}},
+      {$set: {name: "qux"}},
+      {skipSave: true},
     );
     strictEqual(numUpdated, 0);
+  });
+
+  test("stringify DB one-record-per-line", () => {
+    const db   = getDb("foo");
+    const doc1 = {name: "foo", val: 42};
+    const doc2 = {name: "bar", val: 64};
+    const id1  = db.insert(doc1, {skipSave: true});
+    const id2  = db.insert(doc2, {skipSave: true});
+    const docA = db.findOne({_id: id1}, {});
+    const docB = db.findOne({_id: id2}, {});
+
+    const actual   = db.stringifyDb();
+    const expected = "" +
+      "{\n" +
+        `"${id1}":${JSON.stringify(docA)},\n` +
+        `"${id2}":${JSON.stringify(docB)}\n`  +
+      "}\n";
+
+    strictEqual(actual, expected);
   });
 });
